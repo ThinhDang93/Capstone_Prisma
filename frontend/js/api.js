@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://capstone-prisma.onrender.com";
+const API_BASE_URL = "https://capstone-prisma.onrender.com/api";
 
 const Auth = {
   getToken() {
