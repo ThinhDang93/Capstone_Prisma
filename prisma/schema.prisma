@@ -1,0 +1,80 @@
+// Prisma schema — PostgreSQL
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ====================================================================
+// nguoi_dung — bảng người dùng
+// ====================================================================
+model NguoiDung {
+  id        Int     @id @default(autoincrement()) @map("nguoi_dung_id")
+  email     String  @unique @db.VarChar(150)
+  matKhau   String  @map("mat_khau") @db.VarChar(255) // lưu bcrypt hash, KHÔNG lưu plaintext
+  hoTen     String  @map("ho_ten") @db.VarChar(150)
+  tuoi      Int?
+  anhDaiDien String? @map("anh_dai_dien") @db.Text
+
+  // 1 người dùng tạo N ảnh, viết N bình luận, lưu N ảnh
+  hinhAnh  HinhAnh[]
+  binhLuan BinhLuan[]
+  luuAnh   LuuAnh[]
+
+  @@map("nguoi_dung")
+}
+
+// ====================================================================
+// hinh_anh — bảng ảnh
+// ====================================================================
+model HinhAnh {
+  id          Int     @id @default(autoincrement()) @map("hinh_id")
+  tenHinh     String  @map("ten_hinh") @db.VarChar(200) // tên ảnh, dùng để search
+  duongDan    String  @map("duong_dan") @db.Text // URL/đường dẫn ảnh
+  moTa        String? @map("mo_ta") @db.Text
+  nguoiDungId Int     @map("nguoi_dung_id") // người tạo ảnh
+
+  nguoiDung NguoiDung  @relation(fields: [nguoiDungId], references: [id], onDelete: Cascade)
+  binhLuan  BinhLuan[]
+  luuAnh    LuuAnh[]
+
+  @@index([tenHinh]) // tăng tốc GET tìm kiếm ảnh theo tên
+  @@index([nguoiDungId]) // tăng tốc GET danh sách ảnh đã tạo theo user
+  @@map("hinh_anh")
+}
+
+// ====================================================================
+// binh_luan — bảng bình luận
+// ====================================================================
+model BinhLuan {
+  id            Int      @id @default(autoincrement()) @map("binh_luan_id")
+  nguoiDungId   Int      @map("nguoi_dung_id")
+  hinhId        Int      @map("hinh_id")
+  ngayBinhLuan  DateTime @default(now()) @map("ngay_binh_luan") @db.Date
+  noiDung       String   @map("noi_dung") @db.VarChar(1000)
+
+  nguoiDung NguoiDung @relation(fields: [nguoiDungId], references: [id], onDelete: Cascade)
+  hinhAnh   HinhAnh   @relation(fields: [hinhId], references: [id], onDelete: Cascade)
+
+  @@index([hinhId]) // tăng tốc GET bình luận theo id ảnh
+  @@map("binh_luan")
+}
+
+// ====================================================================
+// luu_anh — bảng trung gian N-N cho tính năng Save (khóa chính kép, đúng như ERD)
+// ====================================================================
+model LuuAnh {
+  nguoiDungId Int      @map("nguoi_dung_id")
+  hinhId      Int      @map("hinh_id")
+  ngayLuu     DateTime @default(now()) @map("ngay_luu") @db.Date
+
+  nguoiDung NguoiDung @relation(fields: [nguoiDungId], references: [id], onDelete: Cascade)
+  hinhAnh   HinhAnh   @relation(fields: [hinhId], references: [id], onDelete: Cascade)
+
+  @@id([nguoiDungId, hinhId])
+  @@index([nguoiDungId]) // tăng tốc GET danh sách ảnh đã lưu theo user
+  @@map("luu_anh")
+}

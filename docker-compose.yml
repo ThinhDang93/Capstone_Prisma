@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: capstone-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: capstone_user
+      POSTGRES_PASSWORD: capstone_pass
+      POSTGRES_DB: capstone_db
+    ports:
+      - "5444:5432" 
+    volumes:
+      - capstone_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U capstone_user -d capstone_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  capstone_pgdata:

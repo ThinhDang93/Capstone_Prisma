@@ -1,0 +1,244 @@
+{
+  "info": {
+    "name": "Capstone Image API",
+    "_postman_id": "b7e2a6d0-6e1a-4b8b-9a0a-6b1a1a2f9c11",
+    "description": "Postman collection cho đồ án capstone backend Node.js + Express + PostgreSQL (Pinterest-style image sharing API). Chạy 'Đăng ký' hoặc 'Đăng nhập' trước — token JWT sẽ tự động được lưu vào biến collection {{token}} và các request sau tự dùng token này (Bearer Auth ở cấp collection).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api", "type": "string" },
+    { "key": "token", "value": "", "type": "string" },
+    { "key": "imageId", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Đăng ký",
+          "request": {
+            "method": "POST",
+            "auth": { "type": "noauth" },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"thinh@example.com\",\n  \"matKhau\": \"123456\",\n  \"hoTen\": \"Dang Bao Quoc Thinh\",\n  \"tuoi\": 24,\n  \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const data = pm.response.json().data;",
+                  "  pm.collectionVariables.set('token', data.token);",
+                  "  console.log('Token saved:', data.token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Đăng nhập",
+          "request": {
+            "method": "POST",
+            "auth": { "type": "noauth" },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"thinh@example.com\",\n  \"matKhau\": \"123456\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const data = pm.response.json().data;",
+                  "  pm.collectionVariables.set('token', data.token);",
+                  "  console.log('Token saved:', data.token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "item": [
+        {
+          "name": "Trang chủ - Danh sách ảnh",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/images?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["images"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Trang chủ - Tìm kiếm ảnh theo tên",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/images?search=hoang+hon",
+              "host": ["{{baseUrl}}"],
+              "path": ["images"],
+              "query": [{ "key": "search", "value": "hoang hon" }]
+            }
+          }
+        },
+        {
+          "name": "Trang thêm ảnh - Thêm ảnh mới",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tenHinh\": \"Hoang hon Da Lat\",\n  \"moTa\": \"Chup tai deo Prenn\",\n  \"duongDan\": \"https://example.com/images/hoanghon.jpg\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/images", "host": ["{{baseUrl}}"], "path": ["images"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const data = pm.response.json().data;",
+                  "  pm.collectionVariables.set('imageId', data.id);",
+                  "  console.log('imageId saved:', data.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Trang chi tiết - Thông tin ảnh + người tạo",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/images/{{imageId}}", "host": ["{{baseUrl}}"], "path": ["images", "{{imageId}}"] }
+          }
+        },
+        {
+          "name": "Trang quản lý - Xóa ảnh theo id",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/images/{{imageId}}", "host": ["{{baseUrl}}"], "path": ["images", "{{imageId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": [
+        {
+          "name": "Trang chi tiết - Danh sách bình luận theo id ảnh",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/images/{{imageId}}/comments",
+              "host": ["{{baseUrl}}"],
+              "path": ["images", "{{imageId}}", "comments"]
+            }
+          }
+        },
+        {
+          "name": "Trang chi tiết - Thêm bình luận",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"noiDung\": \"Anh dep qua!\"\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/images/{{imageId}}/comments",
+              "host": ["{{baseUrl}}"],
+              "path": ["images", "{{imageId}}", "comments"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Save",
+      "item": [
+        {
+          "name": "Trang chi tiết - Kiểm tra đã lưu ảnh chưa",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/images/{{imageId}}/saved",
+              "host": ["{{baseUrl}}"],
+              "path": ["images", "{{imageId}}", "saved"]
+            }
+          }
+        },
+        {
+          "name": "Trang chi tiết - Bấm nút Save (toggle)",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/images/{{imageId}}/save",
+              "host": ["{{baseUrl}}"],
+              "path": ["images", "{{imageId}}", "save"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Trang quản lý - Thông tin cá nhân (từ token)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/users/me", "host": ["{{baseUrl}}"], "path": ["users", "me"] }
+          }
+        },
+        {
+          "name": "Chỉnh sửa thông tin cá nhân",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hoTen\": \"Dang Bao Quoc Thinh\",\n  \"tuoi\": 25,\n  \"anhDaiDien\": \"https://example.com/avatar-new.jpg\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/users/me", "host": ["{{baseUrl}}"], "path": ["users", "me"] }
+          }
+        },
+        {
+          "name": "Trang quản lý - Danh sách ảnh đã lưu",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/users/me/saved-images", "host": ["{{baseUrl}}"], "path": ["users", "me", "saved-images"] }
+          }
+        },
+        {
+          "name": "Trang quản lý - Danh sách ảnh đã tạo",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/users/me/created-images", "host": ["{{baseUrl}}"], "path": ["users", "me", "created-images"] }
+          }
+        }
+      ]
+    }
+  ]
+}
