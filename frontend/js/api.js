@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8080/api";
+const API_BASE_URL = "https://capstone-prisma.onrender.com";
 
 const Auth = {
   getToken() {
@@ -55,8 +55,10 @@ async function apiRequest(path, { method = "GET", body, auth = true } = {}) {
 }
 
 const Api = {
-  register: (data) => apiRequest("/auth/register", { method: "POST", body: data, auth: false }),
-  login: (data) => apiRequest("/auth/login", { method: "POST", body: data, auth: false }),
+  register: (data) =>
+    apiRequest("/auth/register", { method: "POST", body: data, auth: false }),
+  login: (data) =>
+    apiRequest("/auth/login", { method: "POST", body: data, auth: false }),
 
   getImages: (params = {}) => {
     const qs = new URLSearchParams(params).toString();
@@ -68,10 +70,14 @@ const Api = {
 
   getComments: (imageId) => apiRequest(`/images/${imageId}/comments`),
   addComment: (imageId, noiDung) =>
-    apiRequest(`/images/${imageId}/comments`, { method: "POST", body: { noiDung } }),
+    apiRequest(`/images/${imageId}/comments`, {
+      method: "POST",
+      body: { noiDung },
+    }),
 
   checkSaved: (imageId) => apiRequest(`/images/${imageId}/saved`),
-  toggleSave: (imageId) => apiRequest(`/images/${imageId}/save`, { method: "POST" }),
+  toggleSave: (imageId) =>
+    apiRequest(`/images/${imageId}/save`, { method: "POST" }),
 
   getMe: () => apiRequest("/users/me"),
   updateMe: (data) => apiRequest("/users/me", { method: "PUT", body: data }),
