@@ -1,0 +1,1903 @@
+{
+	"info": {
+		"_postman_id": "64d0aa6c-c0bf-4ed9-aaeb-de34be925c46",
+		"name": "Capstone Image API",
+		"description": "Postman collection cho đồ án capstone backend Node.js + Express + PostgreSQL (Pinterest-style image sharing API). Chạy 'Đăng ký' hoặc 'Đăng nhập' trước — token JWT sẽ tự động được lưu vào biến collection {{token}} và các request sau tự dùng token này (Bearer Auth ở cấp collection).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45721415",
+		"_collection_link": "https://thinhdang-1445812.postman.co/workspace/ThinhDang's-Workspace~292c5a84-88b9-4bd7-840f-0c80c2c96d36/collection/45721415-64d0aa6c-c0bf-4ed9-aaeb-de34be925c46?action=share&source=collection_link&creator=45721415"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Đăng ký",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"  const data = pm.response.json().data;",
+									"  pm.collectionVariables.set('token', data.token);",
+									"  console.log('Token saved:', data.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"thinh@example.com\",\n  \"matKhau\": \"123456\",\n  \"hoTen\": \"Dang Bao Quoc Thinh\",\n  \"tuoi\": 24,\n  \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Đăng ký",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"thinh1@example.com\",\n  \"matKhau\": \"123456\",\n  \"hoTen\": \"Dang Bao Quoc Thinh\",\n  \"tuoi\": 24,\n  \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:42:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "322"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"182-SSnONuHm4AxC9X/poml3yklS2DM\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "637c2c1f-0eb9-4b37"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40ff1aaf99dddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 201,\n    \"message\": \"Đăng ký thành công\",\n    \"data\": {\n        \"user\": {\n            \"id\": 6,\n            \"email\": \"thinh1@example.com\",\n            \"hoTen\": \"Dang Bao Quoc Thinh\",\n            \"tuoi\": 24,\n            \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n        },\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImVtYWlsIjoidGhpbmgxQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkwNDAxMzM0LCJleHAiOjE3OTA0ODc3MzR9.LXkTy8pmW4ffUi5mYwli2_Q0SHYSCcerH14UfkvYWvE\"\n    }\n}"
+						},
+						{
+							"name": "Đăng ký",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"thinh1@example.com\",\n  \"matKhau\": \"123456\",\n  \"hoTen\": \"Dang Bao Quoc Thinh\",\n  \"tuoi\": 24,\n  \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:42:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "322"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"182-SSnONuHm4AxC9X/poml3yklS2DM\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "637c2c1f-0eb9-4b37"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40ff1aaf99dddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 201,\n    \"message\": \"Đăng ký thành công\",\n    \"data\": {\n        \"user\": {\n            \"id\": 6,\n            \"email\": \"thinh1@example.com\",\n            \"hoTen\": \"Dang Bao Quoc Thinh\",\n            \"tuoi\": 24,\n            \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n        },\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImVtYWlsIjoidGhpbmgxQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkwNDAxMzM0LCJleHAiOjE3OTA0ODc3MzR9.LXkTy8pmW4ffUi5mYwli2_Q0SHYSCcerH14UfkvYWvE\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Đăng nhập",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"  const data = pm.response.json().data;",
+									"  pm.collectionVariables.set('token', data.token);",
+									"  console.log('Token saved:', data.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"thinh@example.com\",\n  \"matKhau\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Đăng nhập",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"thinh@example.com\",\n  \"matKhau\": \"123456\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:39:26 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "327"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"183-aKdNzjAfD3t+h53ofotZV70hXxk\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "4e45ceb7-0f03-40d9"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40fed969847ddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Đăng nhập thành công\",\n    \"data\": {\n        \"user\": {\n            \"id\": 5,\n            \"email\": \"thinh@example.com\",\n            \"hoTen\": \"Dang Bao Quoc Thinh\",\n            \"tuoi\": 24,\n            \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n        },\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImVtYWlsIjoidGhpbmhAZXhhbXBsZS5jb20iLCJpYXQiOjE3OTA0MDExNjYsImV4cCI6MTc5MDQ4NzU2Nn0.aR5eaeGeG-Mc_CfHYWRlmN7pxC9gjwgWMWVfGmKonAg\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Images",
+			"item": [
+				{
+					"name": "Trang chủ - Danh sách ảnh",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/images?page=1&limit=20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang chủ - Danh sách ảnh",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/images?page=1&limit=20",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"images"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "20"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:39:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1187"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"ea2-XTGcgE5sATNk3W2vtqNvFDxB+a0\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "86136e95-ea93-45e7"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40fee364f16ddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Lấy danh sách ảnh thành công\",\n    \"data\": {\n        \"items\": [\n            {\n                \"id\": 9,\n                \"tenHinh\": \"Hoang hon Da Lat\",\n                \"duongDan\": \"https://example.com/images/hoanghon.jpg\",\n                \"moTa\": \"Chup tai deo Prenn\",\n                \"nguoiDungId\": 5,\n                \"nguoiDung\": {\n                    \"id\": 5,\n                    \"hoTen\": \"Dang Bao Quoc Thinh\",\n                    \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n                }\n            },\n            {\n                \"id\": 8,\n                \"tenHinh\": \"Mèo\",\n                \"duongDan\": \"https://i.pinimg.com/736x/f8/45/68/f8456800ac55a50acda33ea6b9267e54.jpg\",\n                \"moTa\": \"méo meo\",\n                \"nguoiDungId\": 1,\n                \"nguoiDung\": {\n                    \"id\": 1,\n                    \"hoTen\": \"Tèo Lèo Nhèo\",\n                    \"anhDaiDien\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvHse9XBXOIbQ81PINC7xy6yFcBO83Aat1ZxvQafsV3g&s=10\"\n                }\n            },\n            {\n                \"id\": 7,\n                \"tenHinh\": \"Mèo mèo\",\n                \"duongDan\": \"https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.pinimg.com%2F736x%2Ff8%2F45%2F68%2Ff8456800ac55a50acda33ea6b9267e54.jpg&tbnid=bBWYT6DWaEI9zM&vet=1&imgrefurl=https%3A%2F%2Fwww.pinterest.com%2Fcachhaynhat%2F900%252B-h%25C3%25ACnh-%25E1%25BA%25A3nh-m%25C3%25A8o-cute-ho%25E1%25BA%25A1t-h%25C3%25ACnh-ng%25E1%25BA%25A7u-bu%25E1%25BB%2593n%2F&docid=-fDSrc30sWdWzM&w=543&h=701&hl=vi-vn&source=sh%2Fx%2Fim%2Fm1%2F3&kgs=634f582e61a86ab5&shem=epsd1%2Cnisbtsa2%2Cnisbtsal%2Crimspwouoe\",\n                \"moTa\": null,\n                \"nguoiDungId\": 3,\n                \"nguoiDung\": {\n                    \"id\": 3,\n                    \"hoTen\": \"Nhân\",\n                    \"anhDaiDien\": null\n                }\n            },\n            {\n                \"id\": 6,\n                \"tenHinh\": \"Mèo mèo\",\n                \"duongDan\": \"https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.pinimg.com%2F736x%2Ff8%2F45%2F68%2Ff8456800ac55a50acda33ea6b9267e54.jpg&tbnid=bBWYT6DWaEI9zM&vet=1&imgrefurl=https%3A%2F%2Fwww.pinterest.com%2Fcachhaynhat%2F900%252B-h%25C3%25ACnh-%25E1%25BA%25A3nh-m%25C3%25A8o-cute-ho%25E1%25BA%25A1t-h%25C3%25ACnh-ng%25E1%25BA%25A7u-bu%25E1%25BB%2593n%2F&docid=-fDSrc30sWdWzM&w=543&h=701&hl=vi-vn&source=sh%2Fx%2Fim%2Fm1%2F3&kgs=634f582e61a86ab5&shem=epsd1%2Cnisbtsa2%2Cnisbtsal%2Crimspwouoe\",\n                \"moTa\": null,\n                \"nguoiDungId\": 3,\n                \"nguoiDung\": {\n                    \"id\": 3,\n                    \"hoTen\": \"Nhân\",\n                    \"anhDaiDien\": null\n                }\n            },\n            {\n                \"id\": 5,\n                \"tenHinh\": \"La\",\n                \"duongDan\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDdEWdHrp1ak2EmVecTc-4UiV309KLjrBdAS8PLYIgQg&s=10\",\n                \"moTa\": \"á\",\n                \"nguoiDungId\": 2,\n                \"nguoiDung\": {\n                    \"id\": 2,\n                    \"hoTen\": \"Tí Lí Nhí\",\n                    \"anhDaiDien\": \"https://images.pexels.com/photos/32121092/pexels-photo-32121092/free-photo-of-chan-dung-ng-i-dan-ong-den-tr-ng-n-t-ng.jpeg?cs=tinysrgb&dpr=1&w=500\"\n                }\n            },\n            {\n                \"id\": 4,\n                \"tenHinh\": \"Ngáp\",\n                \"duongDan\": \"https://images.pexels.com/photos/37969706/pexels-photo-37969706/free-photo-of-chan-dung-den-tr-ng-bi-u-c-m-c-a-ng-i-ngap.jpeg?cs=tinysrgb&dpr=1&w=500\",\n                \"moTa\": \"ngủ\",\n                \"nguoiDungId\": 2,\n                \"nguoiDung\": {\n                    \"id\": 2,\n                    \"hoTen\": \"Tí Lí Nhí\",\n                    \"anhDaiDien\": \"https://images.pexels.com/photos/32121092/pexels-photo-32121092/free-photo-of-chan-dung-ng-i-dan-ong-den-tr-ng-n-t-ng.jpeg?cs=tinysrgb&dpr=1&w=500\"\n                }\n            },\n            {\n                \"id\": 3,\n                \"tenHinh\": \"Hét\",\n                \"duongDan\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGS9SlzierkbxdH1gHsknyCg8kB36jxdNCY_zo8xTDiwh1bBV3r29rwxkI&s=10\",\n                \"moTa\": \"ồn\",\n                \"nguoiDungId\": 1,\n                \"nguoiDung\": {\n                    \"id\": 1,\n                    \"hoTen\": \"Tèo Lèo Nhèo\",\n                    \"anhDaiDien\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvHse9XBXOIbQ81PINC7xy6yFcBO83Aat1ZxvQafsV3g&s=10\"\n                }\n            },\n            {\n                \"id\": 2,\n                \"tenHinh\": \"Vui\",\n                \"duongDan\": \"https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/482783LXr/anh-mo-ta.png\",\n                \"moTa\": \"hề \",\n                \"nguoiDungId\": 1,\n                \"nguoiDung\": {\n                    \"id\": 1,\n                    \"hoTen\": \"Tèo Lèo Nhèo\",\n                    \"anhDaiDien\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvHse9XBXOIbQ81PINC7xy6yFcBO83Aat1ZxvQafsV3g&s=10\"\n                }\n            },\n            {\n                \"id\": 1,\n                \"tenHinh\": \"Kỷ \",\n                \"duongDan\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwgdwaq6KEOlj4XgDNHN_oz7BArFtFFBPojn13aXGsJA&s=10\",\n                \"moTa\": \"bùn\",\n                \"nguoiDungId\": 1,\n                \"nguoiDung\": {\n                    \"id\": 1,\n                    \"hoTen\": \"Tèo Lèo Nhèo\",\n                    \"anhDaiDien\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvHse9XBXOIbQ81PINC7xy6yFcBO83Aat1ZxvQafsV3g&s=10\"\n                }\n            }\n        ],\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 20,\n            \"total\": 9\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Trang chủ - Tìm kiếm ảnh theo tên",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/images?search=hoang hon",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "hoang hon"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang chủ - Tìm kiếm ảnh theo tên",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/images?search=hoang hon",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"images"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "hoang hon"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:40:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "256"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"16a-SrM+sP9xFlRAcj1ZyTh3DH4ZHT0\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "fa52d289-1b6c-49b8"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40fee883fdcddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Lấy danh sách ảnh thành công\",\n    \"data\": {\n        \"items\": [\n            {\n                \"id\": 9,\n                \"tenHinh\": \"Hoang hon Da Lat\",\n                \"duongDan\": \"https://example.com/images/hoanghon.jpg\",\n                \"moTa\": \"Chup tai deo Prenn\",\n                \"nguoiDungId\": 5,\n                \"nguoiDung\": {\n                    \"id\": 5,\n                    \"hoTen\": \"Dang Bao Quoc Thinh\",\n                    \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n                }\n            }\n        ],\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 20,\n            \"total\": 1\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Trang thêm ảnh - Thêm ảnh mới",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"  const data = pm.response.json().data;",
+									"  pm.collectionVariables.set('imageId', data.id);",
+									"  console.log('imageId saved:', data.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tenHinh\": \"Hoang hon Da Lat\",\n  \"moTa\": \"Chup tai deo Prenn\",\n  \"duongDan\": \"https://example.com/images/hoanghon.jpg\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/images",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang thêm ảnh - Thêm ảnh mới",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"tenHinh\": \"Hoang hon Da Lat\",\n  \"moTa\": \"Chup tai deo Prenn\",\n  \"duongDan\": \"https://example.com/images/hoanghon.jpg\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/images",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"images"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:39:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "221"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"126-4znQ1+CVNz9DsMt9PTJuyviB2yo\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "c4000612-27ab-4b1f"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40fedfbf83cddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 201,\n    \"message\": \"Thêm ảnh thành công\",\n    \"data\": {\n        \"id\": 9,\n        \"tenHinh\": \"Hoang hon Da Lat\",\n        \"duongDan\": \"https://example.com/images/hoanghon.jpg\",\n        \"moTa\": \"Chup tai deo Prenn\",\n        \"nguoiDungId\": 5,\n        \"nguoiDung\": {\n            \"id\": 5,\n            \"hoTen\": \"Dang Bao Quoc Thinh\",\n            \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Trang chi tiết - Thông tin ảnh + người tạo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/images/{{imageId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								"{{imageId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang chi tiết - Thông tin ảnh + người tạo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/images/{{imageId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"images",
+										"{{imageId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:40:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "222"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"131-sbsxrJx0/qc/fMoKoa4ik/Mz2Xw\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "9c358e1f-f0ae-4f4b"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40feebd9dd0ddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Lấy thông tin ảnh thành công\",\n    \"data\": {\n        \"id\": 9,\n        \"tenHinh\": \"Hoang hon Da Lat\",\n        \"duongDan\": \"https://example.com/images/hoanghon.jpg\",\n        \"moTa\": \"Chup tai deo Prenn\",\n        \"nguoiDungId\": 5,\n        \"nguoiDung\": {\n            \"id\": 5,\n            \"hoTen\": \"Dang Bao Quoc Thinh\",\n            \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Trang quản lý - Xóa ảnh theo id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/images/{{imageId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								"{{imageId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang quản lý - Xóa ảnh theo id",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/images/{{imageId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"images",
+										"{{imageId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:41:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"46-Gkk22nrgwArWpUgmalTci95iVY0\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "add9aef3-b33c-4754"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40ff013cf8addc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Xóa ảnh thành công\",\n    \"data\": {\n        \"id\": 9\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Trang chi tiết - Danh sách bình luận theo id ảnh",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/images/{{imageId}}/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								"{{imageId}}",
+								"comments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang chi tiết - Danh sách bình luận theo id ảnh",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/images/{{imageId}}/comments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"images",
+										"{{imageId}}",
+										"comments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:40:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "86"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"53-YVHOM4TuNvJtI4/12GnuL4sMeKQ\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "7bde3fdc-d708-4ce9"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40fef1b2a80ddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Lấy danh sách bình luận thành công\",\n    \"data\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Trang chi tiết - Thêm bình luận",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"noiDung\": \"Anh dep qua!\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/images/{{imageId}}/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								"{{imageId}}",
+								"comments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang chi tiết - Thêm bình luận",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"noiDung\": \"Anh dep qua!\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/images/{{imageId}}/comments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"images",
+										"{{imageId}}",
+										"comments"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:40:36 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "208"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"107-3stQPRrbRZyCizMSwEjQ6K6lZp0\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "70bcc589-2d1f-4af5"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40fef475b67ddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 201,\n    \"message\": \"Bình luận thành công\",\n    \"data\": {\n        \"id\": 2,\n        \"nguoiDungId\": 5,\n        \"hinhId\": 9,\n        \"ngayBinhLuan\": \"2026-09-26T00:00:00.000Z\",\n        \"noiDung\": \"Anh dep qua!\",\n        \"nguoiDung\": {\n            \"id\": 5,\n            \"hoTen\": \"Dang Bao Quoc Thinh\",\n            \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Save",
+			"item": [
+				{
+					"name": "Trang chi tiết - Kiểm tra đã lưu ảnh chưa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/images/{{imageId}}/saved",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								"{{imageId}}",
+								"saved"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang chi tiết - Kiểm tra đã lưu ảnh chưa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/images/{{imageId}}/saved",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"images",
+										"{{imageId}}",
+										"saved"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:41:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "98"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"65-RWU8by846VRQ8O09lz8Lb6eKOdo\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "d4fb98db-947d-4097"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40fefeaea18ddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Kiểm tra trạng thái lưu ảnh thành công\",\n    \"data\": {\n        \"daLuu\": true\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Trang chi tiết - Bấm nút Save (toggle)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/images/{{imageId}}/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								"{{imageId}}",
+								"save"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang chi tiết - Bấm nút Save (toggle)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/images/{{imageId}}/save",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"images",
+										"{{imageId}}",
+										"save"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:40:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "98"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"67-jhjpo0l+cZL0rQ5dAdVy/QXFyks\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "f7981f92-bf49-4c4d"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40fefbb9bd7ddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Cập nhật trạng thái lưu ảnh thành công\",\n    \"data\": {\n        \"daLuu\": true\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Trang quản lý - Thông tin cá nhân (từ token)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang quản lý - Thông tin cá nhân (từ token)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/me",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:41:15 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "161"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"c3-Xi9giA5fbig8Q8yPZcf7Nlh0gvs\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "82eebb43-2ab7-467c"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40ff040d8e3ddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Lấy thông tin user thành công\",\n    \"data\": {\n        \"id\": 5,\n        \"email\": \"thinh@example.com\",\n        \"hoTen\": \"Dang Bao Quoc Thinh\",\n        \"tuoi\": 24,\n        \"anhDaiDien\": \"https://example.com/avatar.jpg\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Chỉnh sửa thông tin cá nhân",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"hoTen\": \"Dang Bao Quoc Thinh\",\n  \"tuoi\": 25,\n  \"anhDaiDien\": \"https://example.com/avatar-new.jpg\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Chỉnh sửa thông tin cá nhân",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"hoTen\": \"Dang Bao Quoc Thinh\",\n  \"tuoi\": 25,\n  \"anhDaiDien\": \"https://example.com/avatar-new.jpg\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/me",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:41:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "171"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"d3-rojz9AivvOvortdcEXKZdKQHSgY\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "594005ab-d93e-46c3"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40ff0ba0f94ddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Cập nhật thông tin cá nhân thành công\",\n    \"data\": {\n        \"id\": 5,\n        \"email\": \"thinh@example.com\",\n        \"hoTen\": \"Dang Bao Quoc Thinh\",\n        \"tuoi\": 25,\n        \"anhDaiDien\": \"https://example.com/avatar-new.jpg\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Trang quản lý - Danh sách ảnh đã lưu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/me/saved-images",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"me",
+								"saved-images"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang quản lý - Danh sách ảnh đã lưu",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/me/saved-images",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"me",
+										"saved-images"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:41:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"56-TY87Z04sIodStHUEeaY/pqG5uh8\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "8eeed347-d4ea-4762"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40ff0760a5fddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Lấy danh sách ảnh đã lưu thành công\",\n    \"data\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Trang quản lý - Danh sách ảnh đã tạo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/me/created-images",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"me",
+								"created-images"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Trang quản lý - Danh sách ảnh đã tạo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/me/created-images",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"me",
+										"created-images"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 26 Sep 2026 05:41:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "87"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"57-W/JsZY1EKIhwvEF136SmyW6tbuU\""
+								},
+								{
+									"key": "rndr-id",
+									"value": "ffde67a2-9638-409a"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "a40ff093f9bbddc9-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"message\": \"Lấy danh sách ảnh đã tạo thành công\",\n    \"data\": []\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://capstone-prisma.onrender.com/api/",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "imageId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
